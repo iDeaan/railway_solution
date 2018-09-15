@@ -12,15 +12,13 @@ class Railway {
   }
 
   moveTrainOnRailway(railway) {
-    console.log(`Railway \'${railway.railway}\'`);
-
     const isToMoveImediatly = this.checkCrossPlatform(railway);
 
-    if (isToMoveImediatly) {
-      console.log(`Moving ${railway.currentTrainStation} => ${railway.nextStation}.`);
+    if (isToMoveImediatly.isToMove) {
+      console.log(`Railway \'${railway.railway}\'. Moving ${railway.currentTrainStation} => ${railway.nextStation}. People number: ${railway.peopleNumber}`);
       railway.currentTrainStation = railway.nextStation;
     } else {
-      console.log(`Waiting for other train to pass...`);
+      console.log(`Railway \'${railway.railway}\'. Waiting for train \'${isToMoveImediatly.railwayName}\' to pass...People number: ${railway.peopleNumber}`);
     }
   }
 
@@ -51,12 +49,18 @@ class Railway {
       const crossedRailwayWithCurrentRailwayStation = crossedRailway.cross.find(item => item.withRailway === railway.railway);
       if (crossedRailwayWithCurrentRailwayStation) {
         if (crossedRailwayWithCurrentRailwayStation.stationNumber === crossedRailway.nextStation) {
-          return railway.peopleNumber > crossedRailway.peopleNumber;
+          return {
+            isToMove: railway.peopleNumber > crossedRailway.peopleNumber,
+            railwayName: crossedRailway.railway
+          };
         }
       }
     }
 
-    return true;
+    return {
+      isToMove: true,
+      railwayName: null
+    };
   }
 
 
@@ -75,9 +79,9 @@ class Railway {
 const railwaysInitialData = [
   {
     railway: 'A',
-    stationsCount: 7,
+    stationsCount: 6,
     currentTrainStation: 1,
-    peopleNumber: 100,
+    peopleNumber: 130,
     cross: [
       {
         withRailway: 'C',
@@ -85,7 +89,7 @@ const railwaysInitialData = [
       },
       {
         withRailway: 'B',
-        stationNumber: 5
+        stationNumber: 4
       }
     ],
     isTrainDirectionIncrementing: true // 1 => 2 => 3
