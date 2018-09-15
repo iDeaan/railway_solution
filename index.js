@@ -1,3 +1,13 @@
+/**
+ * Returns range from [-max, max]
+ * @param max
+ * @param min
+ * @returns {number}
+ */
+const generateRandomNumber = (max = 30, min = 2) => {
+  return (Math.random() < 0.5 ? -1 : 1) *  Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
 class Railway {
   constructor(data) {
     this.railwaysData = data;
@@ -16,10 +26,13 @@ class Railway {
 
     if (isToMoveImediatly.isToMove) {
       console.log(`Railway \'${railway.railway}\'. Moving ${railway.currentTrainStation} => ${railway.nextStation}. People number: ${railway.peopleNumber}`);
-      railway.currentTrainStation = railway.nextStation;
+      // railway.currentTrainStation = railway.nextStation;
     } else {
       console.log(`Railway \'${railway.railway}\'. Waiting for train \'${isToMoveImediatly.railwayName}\' to pass...People number: ${railway.peopleNumber}`);
     }
+
+    railway.peopleNumber = this.returnNewPeopleNumber(railway);
+    railway.currentTrainStation = railway.nextStation;
   }
 
   returnTrainNextStation(railway) {
@@ -63,7 +76,11 @@ class Railway {
     };
   }
 
-
+  returnNewPeopleNumber({ peopleNumber }) {
+    const randomNumber = generateRandomNumber();
+    const newPeopleNumber = peopleNumber + randomNumber;
+    return newPeopleNumber > 0 ? newPeopleNumber : 0;
+  }
 
   run() {
     const { iterationTime } = this;
