@@ -71,6 +71,7 @@ class Railway {
   }
 }
 
+// FOR testing objectA: peopleNumber:130, crossB: stationNumber: 4
 const railwaysInitialData = [
   {
     railway: 'A',
