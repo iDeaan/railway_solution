@@ -29,7 +29,7 @@ class Railway {
       railway.peopleNumber = this.returnNewPeopleNumber(railway);
       railway.currentTrainStation = railway.nextStation;
     } else {
-      console.log(`Railway \'${railway.railway}\'. Waiting for train \'${isToMoveImediatly.railwayName}\' to pass...People number: ${railway.peopleNumber}`);
+      console.log(`Railway \'${railway.railway}\'. Need to move ${railway.currentTrainStation} => ${railway.nextStation}. Waiting for train \'${isToMoveImediatly.railwayName}\' to pass...People number: ${railway.peopleNumber}`);
     }
   }
 
