@@ -26,13 +26,11 @@ class Railway {
 
     if (isToMoveImediatly.isToMove) {
       console.log(`Railway \'${railway.railway}\'. Moving ${railway.currentTrainStation} => ${railway.nextStation}. People number: ${railway.peopleNumber}`);
-      // railway.currentTrainStation = railway.nextStation;
+      railway.peopleNumber = this.returnNewPeopleNumber(railway);
+      railway.currentTrainStation = railway.nextStation;
     } else {
       console.log(`Railway \'${railway.railway}\'. Waiting for train \'${isToMoveImediatly.railwayName}\' to pass...People number: ${railway.peopleNumber}`);
     }
-
-    railway.peopleNumber = this.returnNewPeopleNumber(railway);
-    railway.currentTrainStation = railway.nextStation;
   }
 
   returnTrainNextStation(railway) {
@@ -40,8 +38,8 @@ class Railway {
 
     let nextStation = currentTrainStation;
 
-    if (currentTrainStation === 0 && !isTrainDirectionIncrementing) {
-      nextStation = 1;
+    if (currentTrainStation === 1 && !isTrainDirectionIncrementing) {
+      nextStation = 2;
       railway.isTrainDirectionIncrementing = true;
     } else if (currentTrainStation === stationsCount && isTrainDirectionIncrementing) {
       nextStation = currentTrainStation - 1;
@@ -96,7 +94,7 @@ class Railway {
 const railwaysInitialData = [
   {
     railway: 'A',
-    stationsCount: 6,
+    stationsCount: 7,
     currentTrainStation: 1,
     peopleNumber: 130,
     cross: [
@@ -106,7 +104,7 @@ const railwaysInitialData = [
       },
       {
         withRailway: 'B',
-        stationNumber: 4
+        stationNumber: 5
       }
     ],
     isTrainDirectionIncrementing: true // 1 => 2 => 3
